@@ -1,4 +1,4 @@
-import { CalculateMonthlyFare } from '../../src/CalculateMonthlyFare';
+import { calculateMonthlyFare } from '../../src/CalculateMonthlyFare';
 
 
 describe("Fare Calculator Test", () => {
@@ -7,7 +7,7 @@ describe("Fare Calculator Test", () => {
             {distance: 1, duration: 2}, // 1*10 + 2*1 + 5 = 17
             {distance: 3, duration: 5} // 3*10 + 5*1 + 5 = 40
         ];
-        const fareCalculated = CalculateMonthlyFare(testcase);
+        const fareCalculated = calculateMonthlyFare(testcase);
         expect(fareCalculated).toEqual(57);
     })
 });
