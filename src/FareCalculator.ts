@@ -1,13 +1,7 @@
-export type Ride = {
-    distance: number,
-    duration: number
-};
+import { Ride, rates } from '../constants/RidesType';
 
-export const FARE_PER_KM = 10;
-export const FARE_PER_MINUTE = 1;
-export const FIXED_FARE = 5;
-
-export const fareCalculator = ({distance, duration}: Ride) =>{
+export const fareCalculator = ({distance, duration, typeOfRide}: Ride) =>{
     // if(distance === 0) return 5;
+    const {FARE_PER_KM, FARE_PER_MINUTE, FIXED_FARE} = rates[typeOfRide];
     return (FARE_PER_KM * distance + FARE_PER_MINUTE * duration + FIXED_FARE);
 };

@@ -1,4 +1,4 @@
-import { Ride } from "./FareCalculator";
+import { Ride } from '../constants/RidesType';
 import { calculateMonthlyFare } from './CalculateMonthlyFare';
 
 export const getFareDetails = (rides: Ride[]) => {
