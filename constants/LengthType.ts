@@ -1,5 +1,3 @@
-// export type lenType = "CENTIMETER" | "METER" | "MILIMETER" | string;
-
 export enum lenType {
     CENTIMETER = "CENTIMETER",
     METER = "METER",
