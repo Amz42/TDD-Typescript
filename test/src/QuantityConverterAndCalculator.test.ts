@@ -31,4 +31,34 @@ describe("Operations on quantities", () => {
         const result: number = addQuantities(quantity1, quantity2);
         expect(result).toEqual(50.2);
     })
+
+    it("Add 45.39 Pounds to 950 Gram", () => {
+        const quantity1: quantity = {
+            magnitude: 45.39,
+            qtype: "WEIGHT",
+            qunit: "POUND"
+        };
+        const quantity2: quantity = {
+            magnitude: 950,
+            qtype: "WEIGHT",
+            qunit: "GRAM"
+        };
+        const result: number = addQuantities(quantity1, quantity2);
+        expect(result).toEqual(47.48439319917459);
+    })
+
+    it("Add 67 Kgs to 150 Pounds", () => {
+        const quantity1: quantity = {
+            magnitude: 67,
+            qtype: "WEIGHT",
+            qunit: "KG"
+        };
+        const quantity2: quantity = {
+            magnitude: 150,
+            qtype: "WEIGHT",
+            qunit: "POUND"
+        };
+        const result: number = addQuantities(quantity1, quantity2);
+        expect(result).toEqual(135.0388);
+    })
 });
