@@ -1,0 +1,3 @@
+v1. As a User, I want to be able to see available seats,then book a seat & pay for it.
+v2. I should be able to choose & reserve the seat I want from the layout, then book & pay for it.
+v3. Lastly I want a warning popup if I'm booking a special seat.
