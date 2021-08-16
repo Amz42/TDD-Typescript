@@ -1,3 +1,80 @@
 v1. As a User, I want to be able to see available seats,then book a seat & pay for it.
 v2. I should be able to choose & reserve the seat I want from the layout, then book & pay for it.
 v3. Lastly I want a warning popup if I'm booking a special seat.
+
+I - independent
+N - Negotiable
+V - Valuable
+E - Estimatable
+S - Small
+T - Testable
+
+Acceptance Criteria
+Given a registered user of a website 
+when he tries to login using phone no & OTP
+And click the submit button
+Then he should be able to login & view his details/next page
+
+
+- Happy/Standard path - able to login with correct phone no & OTP
+- Alternate Path -
+    User enters incorrect phone no. OR incorrect/expired OTP
+    User can enter incorrect OTP max of 3 times, afterwards he'll be blocked
+- Exception Path -
+    User doesn't receive OTP, or receives it late
+
+
+Agile 
+sprint/iteration - 1/2 week task 
+
+desk check -
+volleyball -
+dev box - 
+kickoff -
+
+to do
+ready for development
+in development
+code review
+ready for QA/testing
+in QA/testing
+
+________________________________________________________
+1. Break user stories
+2. Write acceptance criteria for the first 2 stories
+3. Estimate all the stories
+4. Decide which ones to do in the first sprint
+
+
+USER STORIES:
+    Start Sprint 1
+
+    Story 1 : As a user we want the ability to see the seat layout based on the plane,
+    so that I can decide which seats are unoccupied (and then book it offline) 
+
+    Story 2 : As a user we want the ability to book unoccupied seats so that we can pay for them offline
+    when we go to the airport.
+
+    End Sprint 1 and release 1st Version
+
+    Start Sprint 2
+    Story 3 : As a user we want the ability to pay (online) for the booked seats so
+    that we can complete my booking process online.
+
+    Story 4 : As a user I want the ability to see a warning popup when selecting special seats so
+    that we know they are differently priced
+
+    End Sprint 2 and release 2nd Version
+
+Acceptance Criteria:
+
+    1.
+    Given a customer who wants to book seats
+    When he enters his details & clicks submit
+    Then he should be able to see list of all seats layout
+
+Estimate:
+    1
+    2
+    3
+    3
