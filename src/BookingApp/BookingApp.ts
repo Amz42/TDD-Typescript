@@ -5,8 +5,14 @@ import {
     availableTimings,
     maxBookLimit,
     bookingDataType,
-    availableDates
+    availableDates,
+    movieNotAvaiable,
+    movieAvailable,
+    movieType,
+    movieUpdated
 } from '../../constants/BookingApp/BookingApp';
+
+
 
 export const bookMySeat = (
     currState: bookingDataType ,
@@ -14,13 +20,22 @@ export const bookMySeat = (
     seats: number,
     date: availableDates
 ) => {
-    if(currState[date][timing] + seats <= maxBookLimit){
+    if(currState[date][timing].movieType === "NULL")
+        return {
+            currState,
+            "response" : movieNotAvaiable
+        }
+
+    if(currState[date][timing].tickets + seats <= maxBookLimit){
         return {
             "currState" : {
                 ...currState,
                 [date] : {
                     ...currState[date],
-                    [timing] : currState[date][timing] + seats
+                    [timing] : {
+                        ...currState[date][timing],
+                        tickets: currState[date][timing].tickets + seats
+                    }
                 }
                 
             },
@@ -32,4 +47,51 @@ export const bookMySeat = (
         currState,
         "response" : seatNotAvailable
     }
+}
+
+
+
+export const getMovieInfo = (
+    currState: bookingDataType,
+    date: availableDates,
+    timing: availableTimings
+) => {
+    const {movieType, tickets} =  currState[date][timing];
+    if(movieType !== "NULL"){
+     
+        // return { "response" : movieNotAvaiable}
+        return {
+            "response": movieAvailable,
+            "movieName": movieType,
+            "numberOfSeatsAvailabel": maxBookLimit - tickets
+        };
+    }
+    
+    throw new Error(movieNotAvaiable);
+}
+
+export const setMovieInfo = (
+    currState: bookingDataType,
+    date: availableDates,
+    timing: availableTimings,
+    updateMovie: movieType
+) => {
+    const {movieType, tickets} =  currState[date][timing];
+    if(
+        movieType === "NULL" || tickets === 0
+    ) return {
+        "currState" : {
+            ...currState,
+            [date] : {
+                ...currState[date],
+                [timing] : {
+                    movieType: updateMovie,
+                    tickets: 0
+                }
+            }
+        },
+        "response": movieUpdated
+    }
+
+    throw new Error("Tickets are already booked for this show");
 }
