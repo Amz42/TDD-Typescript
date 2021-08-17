@@ -17,11 +17,5 @@ jobs:
       - name: Install Dependencies
         run: npm install
       
-      - name: Clean
-        run: npm clean
-      
-      - name: Linting
-        run: npm lint
-      
       - name: run tests
         run: npm test
