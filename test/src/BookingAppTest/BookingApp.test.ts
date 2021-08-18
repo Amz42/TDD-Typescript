@@ -1,5 +1,5 @@
-import { successfullyBookedMsg, seatNotAvailable, bookingDataType, movieNotAvaiable, movieAvailable, movieUpdated } from '../../../constants/BookingApp/BookingApp';
-import { bookMySeat, getMovieInfo, setMovieInfo } from '../../../src/BookingApp/BookingApp';
+import { successfullyBookedMsg, seatNotAvailable, bookingDataType, movieNotAvaiable, movieAvailable, movieUpdated, movieIsInvalid } from '../../../constants/BookingApp/BookingApp';
+import { bookMySeat, getMovieInfo, recommendMovieList, setMovieInfo } from '../../../src/BookingApp/BookingApp';
 
 describe("Booking App Test", () => {
     const initialState: bookingDataType = {
@@ -101,4 +101,51 @@ describe("Booking App Test", () => {
             "response" : movieUpdated
         });
     });
+
+    
+})
+
+describe("Movie Recommendation Tests", () => {
+    const initialState: bookingDataType = {
+        "DAY1" : {
+            "NOON": { movieType: "movieA", tickets: 0 }, 
+            "AFTERNOON": { movieType: "movieB", tickets: 4 }, 
+            "EVENING": { movieType: "movieA", tickets: 0 },
+            "NIGHT": { movieType: "movieB", tickets: 3 }
+        },
+        "DAY2" : {
+            "NOON": { movieType: "movieB", tickets: 5 }, 
+            "AFTERNOON": { movieType: "NULL", tickets: 0 }, 
+            "EVENING": { movieType: "NULL", tickets: 0 },
+            "NIGHT": { movieType: "movieB", tickets: 2 }
+        },
+        "DAY3" : {
+            "NOON": { movieType: "NULL", tickets: 0 }, 
+            "AFTERNOON": { movieType: "NULL", tickets: 0 }, 
+            "EVENING": { movieType: "movieB", tickets: 3 },
+            "NIGHT": { movieType: "movieA", tickets: 0 }
+        }
+    }
+
+
+    // Movie Recommendation List
+    it("should raise movieIsInvalid error", () => {
+        expect(()=>recommendMovieList(
+            initialState,
+            "NULL"
+        )).toThrow(movieIsInvalid);
+    });
+
+    it("should return list of shows available for movieB", () => {
+        const result = recommendMovieList( initialState, "movieB");
+        expect(result).toEqual({
+            movieType: "movieB",
+            response: [
+                { day: "DAY1", timing: "AFTERNOON", ticketsAvailable: 1},
+                { day: "DAY1", timing: "NIGHT", ticketsAvailable: 2},
+                { day: "DAY2", timing: "NIGHT", ticketsAvailable: 3},
+                { day: "DAY3", timing: "EVENING", ticketsAvailable: 2}
+            ]
+        });
+    })
 })

@@ -1,7 +1,6 @@
 import {
     successfullyBookedMsg,
     seatNotAvailable,
-    // bookingData,
     availableTimings,
     maxBookLimit,
     bookingDataType,
@@ -9,7 +8,9 @@ import {
     movieNotAvaiable,
     movieAvailable,
     movieType,
-    movieUpdated
+    movieUpdated,
+    recommendMovieListDataType,
+    movieIsInvalid
 } from '../../constants/BookingApp/BookingApp';
 
 
@@ -42,7 +43,7 @@ export const bookMySeat = (
             "response": successfullyBookedMsg
         };
     }
-    // throw new Error("Seat Not available");
+
     return {
         currState,
         "response" : seatNotAvailable
@@ -57,18 +58,18 @@ export const getMovieInfo = (
     timing: availableTimings
 ) => {
     const {movieType, tickets} =  currState[date][timing];
-    if(movieType !== "NULL"){
-     
-        // return { "response" : movieNotAvaiable}
+    if(movieType !== "NULL")
         return {
             "response": movieAvailable,
             "movieName": movieType,
             "numberOfSeatsAvailabel": maxBookLimit - tickets
         };
-    }
     
     throw new Error(movieNotAvaiable);
 }
+
+
+
 
 export const setMovieInfo = (
     currState: bookingDataType,
@@ -77,21 +78,89 @@ export const setMovieInfo = (
     updateMovie: movieType
 ) => {
     const {movieType, tickets} =  currState[date][timing];
-    if(
-        movieType === "NULL" || tickets === 0
-    ) return {
-        "currState" : {
-            ...currState,
-            [date] : {
-                ...currState[date],
-                [timing] : {
-                    movieType: updateMovie,
-                    tickets: 0
+    if(movieType === "NULL" || tickets === 0)
+        return {
+            "currState" : {
+                ...currState,
+                [date] : {
+                    ...currState[date],
+                    [timing] : {
+                        movieType: updateMovie,
+                        tickets: 0
+                    }
                 }
-            }
-        },
-        "response": movieUpdated
-    }
+            },
+            "response": movieUpdated
+        };
 
     throw new Error("Tickets are already booked for this show");
 }
+
+
+
+export const recommendMovieList = (currState: bookingDataType, movieTypeName: movieType) => {
+
+    if(movieTypeName === "NULL")
+        throw new Error(movieIsInvalid);
+
+    let result: recommendMovieListDataType = {
+        movieType: movieTypeName,
+        response: []
+    };
+
+    // Object.entries(currState).map(day => {
+    //     const data = Object.entries(day[1]).filter(timing => {
+    //         return timing[1].movieType === movieTypeName && timing[1].tickets != maxBookLimit;
+    //     })
+
+    //     result.response.push({
+    //         day: day[0],
+
+    //     })
+    // })
+    
+    let date: availableDates
+    for(date in currState){
+
+        let timing: availableTimings;
+        for(timing in currState[date]){
+            const {movieType, tickets} = currState[date]?.[timing];
+            if(movieType === movieTypeName && tickets !== maxBookLimit){
+
+                result.response.push({
+                    day: date,
+                    timing,
+                    ticketsAvailable: maxBookLimit - tickets
+                });
+            }
+        }
+
+    }
+
+    return result;
+}
+
+
+
+
+// export const recommendList = (
+//     currState: bookingDataType,
+//     date: availableDates,
+//     timing: availableTimings
+// ) => {
+
+//     let valid: boolean = false;
+
+//     let dates: availableDates
+//     for(dates in currState){
+//         if(date === dates) valid = true;
+        
+//         if(valid){
+
+//         }
+//     }
+
+//     return { "response": movieNotAvaiable };
+// };
+
+
