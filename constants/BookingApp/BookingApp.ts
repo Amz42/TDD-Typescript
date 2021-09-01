@@ -10,13 +10,15 @@ export type availableTimings = "NOON" | "AFTERNOON" | "EVENING" | "NIGHT";
 export type movieType = "movieA" | "movieB" | "NULL";
 export const maxBookLimit: number = 5;
 
-export type bookingDataType = {
-    [key in availableDates] : {
-        [key in availableTimings]: {
-            movieType: movieType,
-            tickets: number
-        }
+export type bookingTimingType = {
+    [key in availableTimings]: {
+        movieType: movieType,
+        tickets: number
     }
+}
+
+export type bookingDataType = {
+    [key in availableDates] : bookingTimingType
 }
 
 export type recommendMovieDataType = {

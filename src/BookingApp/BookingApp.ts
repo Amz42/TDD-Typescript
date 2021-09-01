@@ -10,7 +10,8 @@ import {
     movieType,
     movieUpdated,
     recommendMovieListDataType,
-    movieIsInvalid
+    movieIsInvalid,
+    bookingTimingType
 } from '../../constants/BookingApp/BookingApp';
 
 
@@ -108,14 +109,17 @@ export const recommendMovieList = (currState: bookingDataType, movieTypeName: mo
         response: []
     };
 
-    // Object.entries(currState).map(day => {
-    //     const data = Object.entries(day[1]).filter(timing => {
+    // Object.entries(currState as bookingDataType).forEach((day, index) => {
+    //     const date = day[0];
+    //     const data = Object.entries(date as bookingTimingType).filter(timing => {
     //         return timing[1].movieType === movieTypeName && timing[1].tickets != maxBookLimit;
     //     })
 
     //     result.response.push({
-    //         day: day[0],
-
+    //         date: day[1],
+    //         // day: availableDates,
+    //         // timing: availableTimings,
+    //         // ticketsAvailable: number
     //     })
     // })
     
